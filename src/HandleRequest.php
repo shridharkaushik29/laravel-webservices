@@ -3,6 +3,7 @@
 namespace Shridhar\Webservices;
 
 use Illuminate\Validation\Validator;
+use Exception;
 
 /**
  *

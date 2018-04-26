@@ -1,0 +1,19 @@
+{
+    "name": "shridharkaushik29/laravel-webservices",
+    "description": "Webservices in laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Shridhar Kaushik",
+            "email": "shridharkaushik29@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Shridhar\\Webservices\\": "src/" 
+        }  
+    },
+    "require": {}
+}

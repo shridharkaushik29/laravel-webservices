@@ -37,12 +37,9 @@ trait HandleResponse {
         return new Exception($message);
     }
 
-    function setData($key, $value, $scopes = true) {
+    function setData($key, $value) {
         if ($value instanceof Builder) {
             $value = $value->get();
-        }
-        if ($scopes) {
-            $this->jsonify($value, $scopes);
         }
         array_set($this->data, $key, $value);
     }

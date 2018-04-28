@@ -26,8 +26,19 @@ trait Input {
         return InputClass::get($key, $default);
     }
 
+    function castInput($key, $cast) {
+        $value = $this->input($key);
+        if ($value) {
+            return filter_var($value, $cast);
+        }
+    }
+
     function file($name) {
         return request()->file($name);
+    }
+
+    function files($name) {
+        return collect($this->file($name));
     }
 
 }

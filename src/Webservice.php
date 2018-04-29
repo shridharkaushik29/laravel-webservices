@@ -11,6 +11,7 @@ trait Webservice {
     use HandleRequest;
     use Input;
     use HandleResponse;
+    use Hooks;
 
     protected $data, $scopes, $page, $limit, $offset, $services_path;
 

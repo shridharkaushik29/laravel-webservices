@@ -18,13 +18,16 @@ trait HandleRequest {
                 $this->perform($p);
             }
         } else {
-            $path = $this->getPath($action);
+            $path = $this->getActionPath($action);
             if (file_exists($path)) {
                 try {
                     include($path);
                 } catch (Exception $exc) {
                     $this->error($exc, false);
                 }
+                return $this->getData();
+            } elseif ($this->hasAction("service-$action")) {
+                $this->doAction("service-$action");
                 return $this->getData();
             } else {
                 abort(404);
@@ -61,7 +64,7 @@ trait HandleRequest {
         }
     }
 
-    function getPath($action) {
+    function getActionPath($action) {
         $path = preg_replace("/\/$/", "", $action);
         $base_path = $this->services_path ?: app_path("Http/Controllers/" . class_basename(__CLASS__));
         $p = "$base_path/$path.php";

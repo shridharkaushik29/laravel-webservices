@@ -15,5 +15,7 @@
             "Shridhar\\Webservices\\": "src/" 
         }  
     },
-    "require": {}
+    "require": {
+        "shridharkaushik29/laravel-hooks": "*"
+    }
 }

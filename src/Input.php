@@ -28,9 +28,7 @@ trait Input {
 
     function castInput($key, $cast) {
         $value = $this->input($key);
-        if ($value) {
-            return filter_var($value, $cast);
-        }
+        return filter_var($value, $cast);
     }
 
     function file($name) {

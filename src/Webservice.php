@@ -13,7 +13,7 @@ trait Webservice {
     use HandleResponse;
     use Hooks;
 
-    protected $data, $scopes, $page, $limit, $offset, $services_path;
+    protected $data, $services_path;
 
     static function routeAction($name) {
         return __CLASS__ . "@$name";

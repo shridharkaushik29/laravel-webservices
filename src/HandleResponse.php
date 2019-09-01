@@ -3,7 +3,7 @@
 namespace Shridhar\Webservices;
 
 use Exception;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 
 /**
  *
@@ -11,44 +11,58 @@ use Illuminate\Database\Eloquent\Builder;
  */
 trait HandleResponse {
 
+    protected $__data;
+
+    /**
+     * @param $message
+     */
     function success($message) {
         $this->setData("type", "success");
         $this->setData("message", $message);
     }
 
+    /**
+     * @param $message
+     * @param bool $exit
+     * @throws Exception
+     */
     function error($message, $exit = true) {
         if ($exit) {
-            if ($message instanceof Exception) {
-                throw $message;
-            } else {
-                throw $this->exception($message);
-            }
-        } else {
-            if ($message instanceof Exception) {
-                $this->setData("message", $message->getMessage());
-            } else {
-                $this->setData("message", $message);
-            }
+            throw $this->exception($message);
         }
+        $this->setData("message", $message);
         $this->setData("type", "error");
     }
 
+    /**
+     * @param $message
+     * @return Exception
+     */
     function exception($message) {
         return new Exception($message);
     }
 
-    function setData($key, $value) {
-        if ($value instanceof Builder) {
-            $value = $value->get();
+    /**
+     * @param $key
+     * @param null $value
+     */
+    function setData($key, $value = null) {
+        if (is_array($key) || is_object($key)) {
+            $this->__data = $key;
+        } else {
+            Arr::set($this->__data, $key, $value);
         }
-        array_set($this->data, $key, $value);
     }
 
+    /**
+     * @param bool $key
+     * @return \Illuminate\Support\Collection|mixed
+     */
     function getData($key = false) {
         if (!$key) {
-            return collect($this->data);
+            return $this->__data;
         } else {
-            return array_get($this->data, $key);
+            return Arr::get($this->__data, $key);
         }
     }
 

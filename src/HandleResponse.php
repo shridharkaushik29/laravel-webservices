@@ -47,7 +47,7 @@ trait HandleResponse {
      * @param null $value
      */
     function setData($key, $value = null) {
-        if (is_array($key) || is_object($key)) {
+        if (func_num_args() < 2) {
             $this->__data = $key;
         } else {
             Arr::set($this->__data, $key, $value);

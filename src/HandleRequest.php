@@ -88,7 +88,7 @@ trait HandleRequest {
      * @return string
      */
     function getActionPath($action) {
-        $path = preg_replace("///", "", $action);
+        $path = preg_replace("/\/$/", "", $action);
         $base_path = $this->services_path ?: app_path("Http/Controllers/" . class_basename(__CLASS__));
         $p = "$base_path/$path.php";
         return $p;

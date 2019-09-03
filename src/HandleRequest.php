@@ -18,14 +18,13 @@ trait HandleRequest {
      */
     function perform($action) {
         if (is_array($action)) {
-            foreach ($action as $p) {
-                $this->perform($p);
+            foreach ($action as $path) {
+                $this->perform($path);
             }
         } else {
-            $path = $this->getActionPath($action);
-            if (file_exists($path)) {
+            if ($this->actionExists($action)) {
                 try {
-                    include($path);
+                    $this->includeAction($action);
                 } catch (Exception $exc) {
                     $this->setData("exception", $exc);
                     $this->error($exc->getMessage(), false);
@@ -35,6 +34,23 @@ trait HandleRequest {
                 abort(404);
             }
         }
+    }
+
+    /**
+     * @param string $path
+     * @return bool
+     */
+    public function actionExists($path) {
+        return file_exists($this->getActionPath($path));
+    }
+
+
+    /**
+     * @param string $path
+     * @return mixed
+     */
+    public function includeAction($path) {
+        return include($this->getActionPath($path));
     }
 
     /**

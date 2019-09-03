@@ -3,7 +3,6 @@
 namespace Shridhar\Webservices;
 
 use Exception;
-use Illuminate\Support\Arr;
 
 /**
  *
@@ -50,7 +49,7 @@ trait HandleResponse {
         if (func_num_args() < 2) {
             $this->__data = $key;
         } else {
-            Arr::set($this->__data, $key, $value);
+            array_set($this->__data, $key, $value);
         }
     }
 
@@ -62,7 +61,7 @@ trait HandleResponse {
         if (!$key) {
             return $this->__data;
         } else {
-            return Arr::get($this->__data, $key);
+            return array_set($this->__data, $key);
         }
     }
 

@@ -3,6 +3,7 @@
 namespace Shridhar\Webservices;
 
 use Exception;
+use Illuminate\Validation\Validator;
 
 /**
  *
@@ -49,7 +50,8 @@ trait HandleRequest {
      * @param string $path
      * @return mixed
      */
-    public function includeAction($path) {
+    public function includeAction($path, $variables = []) {
+        extract($variables);
         return include($this->getActionPath($path));
     }
 
@@ -86,12 +88,13 @@ trait HandleRequest {
     }
 
     /**
-     * @param $validator
+     * @param array|Validator $validator
      * @param array $messages
+     * @param array $customAttributes
      */
-    function validate_request($validator, $messages = []) {
+    function validate_request($validator, array $messages = [], array $customAttributes = []) {
         if (is_array($validator)) {
-            $validator = validator(request()->all(), $validator, $messages);
+            $validator = validator(request()->all(), $validator, $messages, $customAttributes);
         }
 
         if ($validator->fails()) {

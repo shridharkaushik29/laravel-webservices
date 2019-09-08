@@ -48,11 +48,11 @@ trait HandleRequest {
 
     /**
      * @param string $path
-     * @return mixed
+     * @param array $variables
      */
     public function includeAction($path, $variables = []) {
         extract($variables);
-        return include($this->getActionPath($path));
+        include($this->getActionPath($path));
     }
 
     /**

@@ -27,7 +27,6 @@ trait HandleRequest {
                 try {
                     $this->includeAction($action);
                 } catch (Exception $exc) {
-                    $this->setData("exception", $exc);
                     $this->error($exc->getMessage(), false);
                 }
                 return $this->getData();

@@ -16,6 +16,6 @@
     }
   },
   "require": {
-    "laravel/framework": "6.x-dev"
+    "laravel/framework": "10.*"
   }
 }
